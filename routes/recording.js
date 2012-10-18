@@ -4,8 +4,12 @@ if (process.env.DROPBOX == 'YES' && TINY_CONFIG.dropbox && TINY_CONFIG.dropbox.k
     , url = require('url')
     , http = require('http')
     , DropboxClient = require('dropbox-node').DropboxClient
-    , fs = require('fs');
+    , fs = require('fs')
+    , SendGrid = require('sendgrid').SendGrid
+    , Email = require('sendgrid').Email;
 
+
+  var sendgrid = new SendGrid(process.env.SENDGRID_USER, process.env.SENDGRID_PASS);
 
   var dropbox = new DropboxClient(
     process.env.DROPBOX_APP_KEY,
@@ -40,6 +44,23 @@ if (process.env.DROPBOX == 'YES' && TINY_CONFIG.dropbox && TINY_CONFIG.dropbox.k
             console.log(error);
           } else {
             console.log(stat);
+          }
+        });
+
+        var email = new Email({
+          to: 'ray@rumgr.com',
+          from: 'ray@rumgr.com',
+          subject: 'Voicemail',
+          text: 'A voicemail'
+        });
+
+        email.addFile({
+          path: temp
+        });
+
+        sendgrid.send(email, function(success, message) {
+          if (!success) {
+            console.log(message);
           }
         });
       });
