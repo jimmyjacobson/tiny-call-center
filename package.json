@@ -9,6 +9,7 @@
     "express": "3.0.0rc5",
     "hbs": "*",
     "request": "latest",
+    "sendgrid": "0.2.5",
     "dropbox-node": "0.4.0"
   },
 
