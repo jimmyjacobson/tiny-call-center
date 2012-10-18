@@ -1,9 +1,10 @@
-{
+module.exports ={
   "twilio": {
     "number": "16578889312"
   },
 
   "dropbox": {
+    "key": "kj/Iwm0trFA=|nZSakZ+kW3X4HFMQckITeOz8R0ICUGsHkvWl/WUkzA=="
   },
 
   "numbers": {
