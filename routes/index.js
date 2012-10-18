@@ -56,3 +56,11 @@ exports.randomSay = function(req, res) {
                             'response' : theResponse
   });
 };
+
+exports.voicemail = function (req, res) {
+  var baseURL = req.protocol + '://' + req.host;
+
+  res.render('voicemail', {
+    action: baseURL + '/twilio/recording'
+  });
+}
