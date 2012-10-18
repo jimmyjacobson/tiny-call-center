@@ -14,7 +14,6 @@ var express = require('express')
   , fs = require('fs');
 
 TINY_CONFIG = JSON.parse(fs.readFileSync('./tiny-config.json'));
-
 console.log(TINY_CONFIG);
 
 var app = express();
