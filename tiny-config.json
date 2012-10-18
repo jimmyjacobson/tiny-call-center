@@ -1,27 +1,26 @@
 {
-  twilio: {
-    number: '16578889312'
+  "twilio": {
+    "number": "16578889312"
   },
 
-  numbers: {
-    '17024452453': '*',
-    // '17024452453': [1]
+  "numbers": {
+    "17024452453": "*"
   },
 
-  options: [
+  "options": [
     {
-      say: 'Talk to a human',
-      route: true
+      "say": "Talk to a human",
+      "route": true
     },
 
     {
-      say: 'Pro Tip',
-      respondWith: ['Nope', 'Let\'s do this!']
+      "say": "Pro Tip",
+      "respondWith": ["Nope", "Let's do this!"]
     },
 
     {
-      say: 'Are you in jail?',
-      respondWith: 'Sorry'
+      "say": "Are you in jail?",
+      "respondWith": "Sorry"
     }
   ]
 }

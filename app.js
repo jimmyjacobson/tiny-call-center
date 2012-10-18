@@ -1,4 +1,6 @@
 
+
+
 /**
  * Module dependencies.
  */
@@ -8,7 +10,12 @@ var express = require('express')
   , user = require('./routes/user')
   , http = require('http')
   , path = require('path')
-  , hbs = require('hbs');
+  , hbs = require('hbs')
+  , fs = require('fs');
+
+TINY_CONFIG = JSON.parse(fs.readFileSync('./tiny-config.json'));
+
+console.log(TINY_CONFIG);
 
 var app = express();
 
