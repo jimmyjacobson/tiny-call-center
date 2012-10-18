@@ -29,9 +29,13 @@ exports.option = function(req,res) {
   if (req.body.Digits > 0) {
     var theOption = TINY_CONFIG.options[req.body.Digits - 1];
     if (theOption.hasOwnProperty('route')) {
-      res.redirect('/twilio/route');
+      res.header('Location', '/twilio/route');
+      res.send('', 302);
+      //res.redirect('/twilio/route');
     } else if (theOption.hasOwnProperty('respondWith')) {
-      res.redirect('/twilio/random-say?optionNum=' + req.query.id);
+      res.header('Location', '/twilio/random-say?optionNum=' + (req.body.Digits - 1));
+      res.send('', 302);
+      //res.redirect('/twilio/random-say?optionNum=' + (req.body.Digits - 1));
     } else {
       res.render('noOption');
     }

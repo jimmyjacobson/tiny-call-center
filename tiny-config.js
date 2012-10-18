@@ -26,7 +26,7 @@ module.exports ={
 
     {
       "say": "If you are you in jail",
-      "respondWith": "Sorry"
+      "respondWith": ["Sorry"]
     }
   ]
 }
