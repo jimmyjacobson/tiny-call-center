@@ -5,11 +5,12 @@ if (process.env.DROPBOX == 'YES' && TINY_CONFIG.dropbox && TINY_CONFIG.dropbox.k
     , fs = require('fs');
 
   var dbClient = new Dropbox.Client({
-    key: TINY_CONFIG.dropbox.key, sandbox: true
+    key: TINY_CONFIG.dropbox.key,
+    sandbox: true,
+    token: process.env.DROPBOX_USER_TOKEN,
+    tokenSecret: process.env.DROPBOX_USER_SECRET
   });
 
-
-  var util = require("util");
 
   var simpleDriver = {
     url: function() {
@@ -17,22 +18,23 @@ if (process.env.DROPBOX == 'YES' && TINY_CONFIG.dropbox && TINY_CONFIG.dropbox.k
     },
 
     doAuthorize: function(authUrl, token, tokenSecret, callback) {
-      util.print("Visit the following in a browser, then press Enter\n" +
-                  authUrl + "\n");
+      console.log("Visit the following in a browser, then press Enter\n" + authUrl + "\n");
+
       var onEnterKey = function() {
         process.stdin.removeListener("data", onEnterKey);
         callback(token);
       }
+
       process.stdin.addListener("data", onEnterKey);
       process.stdin.resume();
     }
   };
 
-
   dbClient.authDriver(simpleDriver);
   dbClient.authenticate(function(error, client) {
-
+    console.log(error, client);
   });
+
 
   exports.recorded = function (req, res, next) {
     var fileId = Math.floor(Math.random() * 1000000000);
@@ -44,7 +46,7 @@ if (process.env.DROPBOX == 'YES' && TINY_CONFIG.dropbox && TINY_CONFIG.dropbox.k
       if (error) return next(error);
       res.json({ok: true});
 
-      dbClient.writeFile(new Date().toISOString() + ".mp3", response, function (error, stat) {
+      dbClient.writeFile(new Date().toISOString() + ".mp3", response.toString(), function (error, stat) {
         if (error) {
           console.log(error);
         } else {
