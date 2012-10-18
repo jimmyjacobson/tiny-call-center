@@ -15,7 +15,6 @@ var express = require('express')
   , fs = require('fs');
 
 TINY_CONFIG = JSON.parse(fs.readFileSync('./tiny-config.json'));
-console.log(TINY_CONFIG);
 
 var app = express();
 
@@ -37,11 +36,11 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/users', user.list);
-app.post('/twilio/recording', recording.created);
 
 //twilio routes
 app.get('/twilio/call', routes.call);
 app.post('/twilio/random-say', routes.randomSay);
+app.post('/twilio/recording', recording.created);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

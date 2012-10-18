@@ -20,7 +20,7 @@ exports.call = function(req, res) {
       theMessage += ' press ' + (i + 1) + ' ';
       var tempURL = baseURL + '/twilio/option?id=' + i;
       tempURL = escape(tempURL);
-      optionsString += '&Options=' + tempURL;
+      optionsString += '&Options[' + i + ']=' + tempURL;
     }
   }
   theMessage += 'To hear these options again, press 0';
