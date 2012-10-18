@@ -40,7 +40,7 @@ app.get('/users', user.list);
 //twilio routes
 app.get('/twilio/call', routes.call);
 app.get('/twilio/option', routes.option);
-app.post('/twilio/random-say', routes.randomSay);
+app.get('/twilio/random-say', routes.randomSay);
 app.post('/twilio/recording', recording.created);
 
 http.createServer(app).listen(app.get('port'), function(){

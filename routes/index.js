@@ -30,13 +30,18 @@ exports.call = function(req, res) {
 
 exports.option = function(req,res) {
   var theOption = TINY_CONFIG.options[req.query.id];
-  if (theOption.hasOwnProperty('route') {
-    res.redirect('/k
+  if (theOption.hasOwnProperty('route')) {
+    res.redirect('/twilio/route');
+  } else if (theOption.hasOwnProperty('respondWith')) {
+    res.redirect('/twilio/randomSay?optionNum=' + req.query.id);
+  } else {
+    res.render('noOption');
+  }
 };
 
 exports.randomSay = function(req, res) {
   res.contentType('text/xml');
-  var theOption = TINY_CONFIG.options[req.body.optionNum];
+  var theOption = TINY_CONFIG.options[req.query.optionNum];
   var theResponse = theOption.respondWith[Math.floor(Math.random()*theOption.respondWith.length)];
   var responseVerb;
   if (theResponse.match('http') !== null && (theResponse.search(".mp3") > 0 ||
