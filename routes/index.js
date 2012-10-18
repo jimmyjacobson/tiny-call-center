@@ -8,9 +8,8 @@ exports.index = function(req, res){
 };
 
 exports.call = function(req, res) {
-  var theMessage = 'Thank you for calling ' + TINY_CONFIG.companyName + ' ';
-  var baseURL = req.protocol + '://' + req.host;
-  var optionsString = '&Options[0]=' + baseURL + '/twilio/call';
+  var welcomeMessage = 'Thank you for calling ' + TINY_CONFIG.companyName + ' ';
+  var theMessage = '';
   for (var i = 0; i < TINY_CONFIG.options.length; ++i) {
     //only allow 9 options
     if (i > 9) {
@@ -18,22 +17,24 @@ exports.call = function(req, res) {
     } else {
       theMessage += TINY_CONFIG.options[i].say;
       theMessage += ' press ' + (i + 1) + ' ';
-      var tempURL = baseURL + '/twilio/option?id=' + i;
-      tempURL = escape(tempURL);
-      optionsString += '&Options[' + i + ']=' + tempURL;
     }
   }
   theMessage += 'To hear these options again, press 0';
-  theMessage = theMessage.replace(/\ /g, "+");
-  res.redirect('http://twimlets.com/menu?Message=' + theMessage + optionsString);
+  res.contentType('text/xml');
+  res.render('call', {optionsMessage: theMessage,
+                      'welcomeMessage': welcomeMessage});
 };
 
 exports.option = function(req,res) {
-  var theOption = TINY_CONFIG.options[req.query.id];
-  if (theOption.hasOwnProperty('route')) {
-    res.redirect('/twilio/route');
-  } else if (theOption.hasOwnProperty('respondWith')) {
-    res.redirect('/twilio/randomSay?optionNum=' + req.query.id);
+  if (req.body.Digits > 0) {
+    var theOption = TINY_CONFIG.options[req.body.Digits - 1];
+    if (theOption.hasOwnProperty('route')) {
+      res.redirect('/twilio/route');
+    } else if (theOption.hasOwnProperty('respondWith')) {
+      res.redirect('/twilio/random-say?optionNum=' + req.query.id);
+    } else {
+      res.render('noOption');
+    }
   } else {
     res.render('noOption');
   }

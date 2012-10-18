@@ -1,4 +1,8 @@
 <Response>
-  <Say>Thank you for calling {{companyName}}</Say>
-  <Redirect>
+  <Gather numDigits="1" action="/twilio/option" method="POST">
+    <Say>{{welcomeMessage}}</Say>
+    <Pause />
+    <Say>{{optionsMessage}}></Say>
+  </Gather>
+  <Redirect method="POST">./option</Redirect>
 </Response>
