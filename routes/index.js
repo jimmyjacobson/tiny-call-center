@@ -9,7 +9,7 @@ exports.index = function(req, res){
 
 exports.call = function(req, res) {
   var theMessage = 'Thank you for calling ' + TINY_CONFIG.companyName + ' ';
-  var baseURL = req.headers.host + req.host;
+  var baseURL = req.protocol + '://' + req.host;
   var optionsString = '&Options[0]=' + baseURL + '/twilio/call';
   for (var i = 0; i < TINY_CONFIG.options.length; ++i) {
     //only allow 9 options
@@ -26,6 +26,12 @@ exports.call = function(req, res) {
   theMessage += 'To hear these options again, press 0';
   theMessage = theMessage.replace(/\ /g, "+");
   res.redirect('http://twimlets.com/menu?Message=' + theMessage + optionsString);
+};
+
+exports.option = function(req,res) {
+  var theOption = TINY_CONFIG.options[req.query.id];
+  if (theOption.hasOwnProperty('route') {
+    res.redirect('/k
 };
 
 exports.randomSay = function(req, res) {
