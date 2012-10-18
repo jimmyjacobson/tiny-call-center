@@ -9,7 +9,6 @@ module.exports ={
 
   "numbers": {
     "17024452453": "*",
-    "16036303260": "*"
   },
 
   "companyName": "Vegas Tech",

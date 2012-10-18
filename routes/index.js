@@ -48,6 +48,7 @@ exports.routeCall = function(req, res) {
   var phoneNumbers = Object.keys(TINY_CONFIG.numbers);
   var numbersToCall = new Array();
   var baseURL = req.protocol + '://' + req.host;
+  baseURL = escape(baseURL);
   var numbersString = '';
   if (phoneNumbers.length > 5) {
     for (var i = 0; i < 5; ++i) {
@@ -59,9 +60,10 @@ exports.routeCall = function(req, res) {
   } else {
     for (var i = 0; i < phoneNumbers.length; ++i) {
       numbersToCall.push(phoneNumbers[i]);
-      numbersString += 'PhoneNumbers[' + i + ']=' + phoneNumbers[i] + '&';
+      numbersString += 'PhoneNumbers%5B' + i + '%5D=' + phoneNumbers[i] + '&';
     }
   }
+  console.log(numbersString);
   var messageString = TINY_CONFIG.confirmCallMessage.replace(/\ /g,"%20");
   res.redirect('http://twimlets.com/simulring?' + numbersString + 'Message=' + messageString 
      + '&FailUrl=' + baseURL + '/twilio/recording');
