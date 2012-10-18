@@ -11,17 +11,17 @@
 
   "options": [
     {
-      "say": "Talk to a human",
+      "say": "To Talk to a human",
       "route": true
     },
 
     {
-      "say": "Pro Tip",
+      "say": "For a Pro Tip",
       "respondWith": ["Nope", "Let's do this!"]
     },
 
     {
-      "say": "Are you in jail?",
+      "say": "If you are you in jail",
       "respondWith": "Sorry"
     }
   ]
