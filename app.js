@@ -8,6 +8,7 @@
 var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
+  , recording = require('./routes/recording')
   , http = require('http')
   , path = require('path')
   , hbs = require('hbs')
@@ -36,6 +37,7 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/users', user.list);
+app.post('/twilio/recording', recording.created);
 
 //twilio routes
 app.get('/twilio/call', routes.call);
