@@ -16,7 +16,7 @@ exports.call = function(req, res) {
       i = TINY_CONFIG.options.length;
     } else {
       theMessage += TINY_CONFIG.options[i].say;
-      theMessage += ' press ' + (i + 1) + ' ';
+      theMessage += ' press ' + (i + 1) + '. ';
     }
   }
   theMessage += 'To hear these options again, press 0';
