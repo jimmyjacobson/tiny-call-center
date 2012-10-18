@@ -41,6 +41,7 @@ app.get('/users', user.list);
 app.get('/twilio/call', routes.call);
 app.post('/twilio/option', routes.option);
 app.get('/twilio/random-say', routes.randomSay);
+app.get('/twilio/route', routes.routeCall);
 app.get('/twilio/voicemail', routes.voicemail);
 app.post('/twilio/recording', recording.created);
 

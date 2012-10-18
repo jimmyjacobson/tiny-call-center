@@ -44,6 +44,30 @@ exports.option = function(req,res) {
   }
 };
 
+exports.routeCall = function(req, res) {
+  var phoneNumbers = Object.keys(TINY_CONFIG.numbers);
+  var numbersToCall = new Array();
+  var baseURL = req.protocol + '://' + req.host;
+  var numbersString = '';
+  if (phoneNumbers.length > 5) {
+    for (var i = 0; i < 5; ++i) {
+      var theNum = Math.floor(Math.random()*phoneNumbers.length);
+      numbersToCall.push(phoneNumbers[theNum]);
+      numbersString += 'PhoneNumbers[' + i + ']=' + phoneNumbers[theNum] + '&';
+      phoneNumbers.splice(theNum, 1);
+    }
+  } else {
+    for (var i = 0; i < phoneNumbers.length; ++i) {
+      numbersToCall.push(phoneNumbers[i]);
+      numbersString += 'PhoneNumbers[' + i + ']=' + phoneNumbers[i] + '&';
+    }
+  }
+  var messageString = TINY_CONFIG.confirmCallMessage.replace(/\ /g,"%20");
+  res.redirect('http://twimlets.com/simulring?' + numbersString + 'Message=' + messageString 
+     + '&FailUrl=' + baseURL + '/twilio/recording');
+  //res.render('routeCall', { numbers: numbersToCall });
+};
+
 exports.randomSay = function(req, res) {
   res.contentType('text/xml');
   var theOption = TINY_CONFIG.options[req.query.optionNum];
@@ -60,11 +84,3 @@ exports.randomSay = function(req, res) {
                             'response' : theResponse
   });
 };
-
-exports.voicemail = function (req, res) {
-  var baseURL = req.protocol + '://' + req.host;
-
-  res.render('voicemail', {
-    action: baseURL + '/twilio/recording'
-  });
-}

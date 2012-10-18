@@ -8,10 +8,13 @@ module.exports ={
   },
 
   "numbers": {
-    "17024452453": "*"
+    "17024452453": "*",
+    "16036303260": "*"
   },
 
   "companyName": "Vegas Tech",
+  
+  "confirmCallMessage" : "This is a support call. Press any key to accept it",
 
   "options": [
     {
