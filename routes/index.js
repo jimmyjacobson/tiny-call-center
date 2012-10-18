@@ -25,8 +25,6 @@ exports.call = function(req, res) {
   }
   theMessage += 'To hear these options again, press 0';
   theMessage = theMessage.replace(/\ /g, "+");
-  console.log('Message: ' + theMessage);
-  console.log('Options: ' + optionsString);
   res.redirect('http://twimlets.com/menu?Message=' + theMessage + optionsString);
 };
 
