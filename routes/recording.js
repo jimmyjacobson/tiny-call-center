@@ -1,15 +1,19 @@
 var request = require('request')
-  , dropbox = require('dropbox')
+  , Dropbox = require('dropbox')
   , fs = require('fs');
 
 
-exports.recorded = function (req, res, next) {
-  if (TINY_CONFIG.dropbox && TINY_CONFIG.dropbox.key) {
-    var fileId = Math.floor(Math.random() * 1000000000);
+var dbClient = new Dropbox.Client({
+  key: TINY_CONFIG.dropbox.key, sandbox: true
+});
 
-    var dbClient = new Dropbox.Client({
-      key: TINY_CONFIG.dropbox.key, sandbox: true
-    });
+// dbClient.authDriver(new Dropbox.Drivers.NodeServer(8191));
+
+
+if (TINY_CONFIG.dropbox && TINY_CONFIG.dropbox.key) {
+
+  exports.recorded = function (req, res, next) {
+    var fileId = Math.floor(Math.random() * 1000000000);
 
     request({
       method: 'GET',
@@ -27,4 +31,7 @@ exports.recorded = function (req, res, next) {
       });
     });
   }
+
+} else {
+  exports.recorded = function () {};
 }

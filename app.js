@@ -1,4 +1,7 @@
 
+var fs = require('fs')
+
+TINY_CONFIG = require('./tiny-config');
 
 
 /**
@@ -11,10 +14,7 @@ var express = require('express')
   , recording = require('./routes/recording')
   , http = require('http')
   , path = require('path')
-  , hbs = require('hbs')
-  , fs = require('fs');
-
-TINY_CONFIG = JSON.parse(fs.readFileSync('./tiny-config.json'));
+  , hbs = require('hbs');
 
 var app = express();
 
